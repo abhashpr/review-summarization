@@ -1,0 +1,527 @@
+
+/***********************************************************************************************/
+/* Following css is for Consors Finanz                                                         */
+/* Developed by : Abhash Priyadarshi                                                           */
+/* Do not copy and distribute. Request you to respect the developer effort and your own ethics */
+/***********************************************************************************************/
+
+	body { 
+		background: #fff; 
+		-moz-user-select: none; 
+		-webkit-user-select: none; 
+		-ms-user-select:none; 
+		user-select:none;
+		-o-user-select:none;
+	}
+	:root {
+		/* Global Variables */
+		
+		/* 
+		Consors Finance Group official color => #00965E
+		--bgdX: #00965E;                  
+		--bgdY: #00965E;
+		*/
+		
+		--szH: 80px;                     /* circle diameter */
+		--szW: calc( var(--szH) / 2);    /* circle radius */
+		--wrapPad: 22px;                 /* wrapper padding */
+		--rotTm: 1;                      /* rotation time */
+		--bgdX: #67D5CC;                 /* 1st progress bar color */
+		--bgdY: #3CB371;                 /* 2nd progress bar color */
+		--bgdB: #f7f7f7;                 /* display block background */
+		--bgdH: #61825c;                 /* header background */
+		--bgdC: #fff;
+		--inRad: 15; 					 /* inner circle diameter */
+		
+		/* Graph variables */
+		--loadCol: #4FAF41;              /* load jobs percentage color */
+		--fileCol: #bF5435;              /* file arrival percentage color */
+		--cpuCol: #2F9fa5;               /* cou usage percentage color */
+		--lnWdth: 1px;					 /* Graph plot line thicknes */
+		--graphHeight: 320px;
+		--graphWidth: 540px;
+		}
+	/* ------------------------------------------------------------------------------------------------------------ */
+	/* ------------------------------------------ L E F T    S E C T I O N ---------------------------------------- */
+	/* ------------------------------------------------------------------------------------------------------------ */	
+	.vLeft_x {
+		background: var(--bgdX);
+		width: var(--szW);
+		height: var(--szH);
+		position: absolute;
+		float: left;
+		border-bottom-left-radius: var(--szH);
+		border-top-left-radius: var(--szH);
+	}
+	.vLeft_y {
+		background: var(--bgdY);
+		width: var(--szW);
+		height: var(--szH);
+		position: absolute;
+		float: left;
+		margin-left: var(--szW);
+		border-bottom-right-radius: var(--szH);
+		border-top-right-radius: var(--szH);
+		opacity: 0;
+		z-index: 10;
+	}
+	.circle {
+		width: calc(var(--szH) - var(--szH) / var(--inRad));
+		height: calc(var(--szH) - var(--szH) / var(--inRad));
+		position: absolute;
+		border-radius: 50%;
+		background: white;
+		margin-top: calc(var(--szH)/(2 * var(--inRad)));
+		margin-left: calc(var(--szW)/(var(--inRad)));
+		line-height: var(--szH);
+		text-align: center;
+		font-size: calc(var(--szH) / 6);
+		z-index: 11;
+		background: var(--bgdC);
+	}
+	.rect {
+		position: absolute;
+		width: var(--szW);
+		height: var(--szH);
+		background: var(--bgdB);
+		z-index: 9;
+	}
+	.wrapper {
+		background: var(--bgdB); 
+		width: var(--szH); 
+		height: var(--szH);
+		padding: var(--wrapPad);
+		position: relative;
+		float: left;
+	}
+	.container_1 {   
+		margin: 0px 10px 0 70px; 
+		float: left; 
+		min-width: 1400px;
+	}
+	.container_1 .left_section {
+		width: 620px; 
+		float: left; 
+		border: 1px #ececec solid; 
+		padding: 2px; 
+		margin-right: 2px;
+	}
+	.container_1 .load_head {
+		padding: 4px; 
+		font-family: verdana; 
+		color: #fff; 
+		font-size: 10px; 
+		font-weight: bold; 
+		display: table; 
+		background: #00965E;
+	}
+	.container_1 .file_head {
+		padding: 4px; 
+		font-family: verdana; 
+		color: #fff; 
+		font-size: 10px; 
+		font-weight: bold; 
+		display: table; 
+		background: #00965E;
+	}
+	.rot_unit {
+		display: inline-block; 
+		float: left;
+	}
+	.header {
+		margin: 0 0 5px 10px;
+		height: 5px;
+		min-width: 1173px;
+		display: inline-block;
+		background: #fff;
+		padding: 25px;
+		/*border: 5px #EAECEE solid;*/
+	}
+	.header .title {
+		font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+		font-size: 15px;
+		color: #777;
+		font-weight: bold;
+		margin-top: -1.5%;
+	}
+	.header .logo {
+		float: right;
+		margin-top: -1.8%;
+		opacity: 0.7;
+	}
+	.bullet {
+		margin: -20px 0 0 -20px;
+		width: 10px;
+		height: 45px;
+		background: #00965E;
+		position: absolute;
+	}
+	.details {
+		font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+		float: left;
+		font-size: 11px;
+		color: grey;
+		margin-top: -5px;
+	}
+	.report {
+		overflow: hidden;
+		display:  table;
+		font-family: helvetica;
+		font-size: 11px;
+		text-transform: uppercase;
+		color : #888;
+		float: left;
+		margin-right: 0 2px 0 2px;
+	}
+	.tinyhead {
+		font-family: helvetica; 
+		background: var(--bgdB); 
+		font-size: 10px; 
+		color: #555; 
+		width: calc(var(--szH) + 2 * var(--wrapPad));
+		text-align: center; 
+		padding-top: 10px;
+	}
+	.graph_bullet {
+		background: var(--bgdY);
+		width: var(--szW);
+		height: var(--szH);
+		position: absolute;
+		float: left;
+		margin-left: calc( var(--szW) );
+		border-bottom-right-radius: var(--szH);
+		border-top-right-radius: var(--szH);
+		opacity: 1;
+		z-index: 10;
+	}
+
+	/* ------------------------------------------------------------------------------------------------------------ */
+	/* ------------------------------------------ R I G H T     S E C T I O N ------------------------------------- */
+	/* ------------------------------------------------------------------------------------------------------------ */
+
+	.right_section {
+		width: 600px; 
+		float: left; 
+		background: #FFF;
+		border: 1px #ececec solid; 
+		position: relative;
+		margin-left: 1px;
+	}
+	.graph_line {
+		height: 1px; 
+		position: absolute; 
+		transform-origin: 0% 50%;
+	}
+	.coord {
+		width: 3px; 
+		height: 3px;
+		margin-top: -1px;
+		position: absolute; 
+		
+	}
+	#load_toggler {
+		cursor: pointer; 
+		width: 110px; 
+		height: 30px; 
+		margin: 12px 0 0 5px;  
+		position: absolute; 
+		border: 1px #eee solid; 
+		background: #fff; 
+		border-radius: 5px; 
+		border-bottom: 1px var(--loadCol) solid;
+	}
+	#file_toggler {
+		cursor: pointer; 
+		width: 110px; 
+		height: 30px; 
+		margin: 12px 0 0 120px;  
+		position: absolute; 
+		border: 1px #eee solid; 
+		background: #fff; 
+		border-radius: 5px; 
+		border-bottom: 1px var(--fileCol) solid;
+	}
+	#cpu_toggler {
+		cursor: pointer; 
+		width: 110px; 
+		height: 30px; 
+		margin: 12px 0 0 235px;  
+		position: absolute; 
+		border: 1px #eee solid; 
+		background: #fff; 
+		border-radius: 5px; 
+		border-bottom: 1px var(--cpuCol) solid;
+	}
+	#load_toggler  div { background: var(--loadCol); }
+	#file_toggler  div { background: var(--fileCol); }
+	#cpu_toggler    div { background: var(--cpuCol);  }
+	
+	.togglerp {
+		margin: 7px 0 0 20px; 
+		font-size: 10px; 
+		line-height: 15px; 
+		font-family: arial; 
+		color: #555; 
+		position: absolute;
+	}
+	.togglerBullet {
+		width: 8px; 
+		height: 8px; 
+		margin: 10px 0 0 5px; 
+		position: absolute; 
+		border-radius: 50%;
+	}
+	.dtSel {
+		padding: 12px; 
+		color: white; 
+		font-size: 12px; 
+		line-height: 11px; 
+		font-family: consolas; 
+		width: 180px; 
+		height: 11px; 
+		margin: 10px 0 0 392px;  
+		position: absolute; 
+		background: #3c9b85; 
+		border-radius: 4px;
+	}
+	.dtDropDn {
+		text-align-last: center;
+		font-family: verdana; 
+		font-size: 12px; 
+		width: 150px; 
+		height: 25px; 
+		margin: 15px 0 0 440px; 
+		position: absolute; 
+		background: #fcfcfc;
+	}
+	.chartInfoBox { 
+		opacity: 0; 
+		font-family: consolas; 
+		font-size: 12px; 
+		padding: 10px; 
+		z-index: 1; 
+		width: 150px; 
+		height: 55px; 
+		margin: -25px 0 0 330px; 
+		position: absolute; 
+		color: #fff; 
+		background: #2f994b; 
+		border-radius: 5px;
+	}
+	.chartInfoBox:hover { 
+		opacity: 1; 
+		margin-top: -10px; 
+		transition: 1s;
+	}
+	.chartLine {
+		width: var(--graphWidth); 
+		height: 20px; 
+		border-bottom: 1px #d0d0d0 dotted;
+		background: #f9f9f9; 
+		position: absolute; 
+	}
+	#chartContainer {		
+		height: 350px;
+		margin: 55px 5px 5px 5px; 
+		background: #fff;
+	}
+	/* This is the plot area doimension */
+	#axes {
+		width: var(--graphWidth); 
+		height: var(--graphHeight); 
+		border-left: 1px #ccc dotted; 
+		border-bottom: 1px #ccc dotted; 
+		margin: 5px 0 0 32px; 
+		position: absolute;
+	}
+	#file_arrow {
+		z-index: 1; 
+		width: 0; 
+		height: 0; 
+		margin: 2px 0 0 2px; 
+		border-top: 10px solid transparent; 
+		border-right: 10px solid #2f994b; 
+		border-bottom: 10px solid transparent; 
+		position: absolute;
+	}
+	#time_arrow {
+		z-index: 1; 
+		width: 0; 
+		height: 0; 
+		margin: 305px 0 0 490px; 
+		border-left: 10px solid transparent; 
+		border-top:   10px solid #347cc9; 
+		border-right:  10px solid transparent; 
+		position: absolute;
+	}
+	#file_arrow_bg {
+		z-index: 1; 
+		padding: 4px; 
+		font-size: 12px; 
+		line-height: 15px; 
+		font-family: consolas; 
+		color: #fff; 
+		text-align: center; 
+		width: 80px; 
+		height: 15px; 
+		margin: 0 0 0 8px; 
+		position: absolute; 
+		background: #2f994b; 
+		border-radius: 3px;
+	}
+	#time_arrow_bg  {
+		z-index: 1; 
+		padding: 4px; 
+		font-size: 12px; 
+		line-height: 15px; 
+		font-family: consolas; 
+		color: #fff; 
+		text-align: center; 
+		width: 80px; 
+		height: 15px; 
+		margin: 285px 0 0 450px; 
+		position: absolute; 
+		background: #347cc9; 
+		border-radius: 3px;
+	}
+	.noDisp { display: none; }
+	.opac { opacity: 0.3; }
+	
+	
+	#submit-text {
+		width: 100px; 
+		height: 30px; 
+		background: #2382c6; 
+		color: white; 
+		font-family: helvetica; 
+		font-size: 12px; 
+		text-align: center; 
+		font-weight: bold;
+		line-height: 30px; 
+		margin: 5px 0 0 0px; 
+		cursor: pointer; 
+		transition: .3s linear all
+	}		 
+		
+	#submit-text:hover {
+		background: #0f8453; 
+	}
+	
+	#blog-demo  { width: 1000px; height: 500px; margin: -10px 0 0 -995px; padding: 50px; border: 5px #fff solid; position: fixed; z-index: 2;
+			      background: #fcfcfc; border-radius: 3px; box-shadow: 1px 1px 10px #888888;
+				}
+	
+    #train-table  { width: 900px; height: 400px; margin: -120px 0 0 0; position: absolute; overflow: scroll}
+		
+	#demo-opener {	width: 170px; height: 30px; color: white; background: #A3E9EC; color: #555; font-family: 'Raleway', sans-serif;
+					font-size: 15px; text-align: center; line-height: 28px; font-weight: bold; transform: rotate(-90deg); margin: 100px 0 0 870px; 
+					cursor: pointer; transition: .5s all; box-shadow: -10px 1px 10px #888;
+		         }
+		
+	#demo-opener:hover  { background: #5183a3; color: #fff; }
+		
+	#demo-closer        { width: 20px; height: 20px; text-align: center; color: white; background: grey; color: white; font-family: helvetica; float: left; 
+			              font-size: 12px; text-align: center; font-weight: bold; line-height: 20px; margin: -170px 0 0 -40px; border-radius: 50%; cursor: 
+						  pointer; transition: .5s all;
+		                }
+		
+	#demo-closer:hover  { background: brown; border-radius: 0%; width: 30px; height: 30px; line-height: 30px; }
+	
+	.show-form             { animation : .5s ease-out forwards showform;}
+	@keyframes showform    { from { transform: translateX(0px) }  to  { transform: translateX(1000px) } }
+                               
+	.hide-form             { animation : .5s ease forwards hideform;}
+	@keyframes hideform    { from { transform: translateX(900px) }  to  { transform: translateX(0px) } }
+	
+	/* Data Freshness style section */
+	#data-freshness-section { width: 596px; height: 206px; background: #fff; margin: 2px 0 3px 2px; }
+	#data-freshness-title { 
+		width: 596px; 
+		height: 25px; 
+		background: #333; 
+		margin: 10px 0 0 0; 
+		text-align: center; 
+		line-height: 25px; 
+		font-size: 12px; 
+		color: white; 
+		font-family: verdana;
+	}
+	#data-freshness-ind { width: 600px; position: relative; display: inline-block; margin: 20px 0 0 0px; }
+	.data-freshness-meter { float: left; width: 150px; height: 120px; font-weight: bold; position: relative; margin: 0 10px 0 30px; }
+	.data-freshness-meter p {color: #fff; 
+							font-family: helvetica; 
+							font-size: 10px; 
+							position: absolute; 
+							padding: 2px; 
+							padding: 5px; 
+							background: #777; 
+							border-radius: 3px;
+							margin: -3px 0 0 0px;}
+	#data-freshness-float-per { height: 30px; width: 30px; background: #fff; position: absolute;}
+	.data-freshness-scale { 
+		width: 120px; 
+		height: 60px;
+		border-left: 10px #DDD solid; 
+		border-top: 10px #41dde2 solid; 
+		border-right: 10px #777 solid; 
+		border-top-left-radius: 120px; 
+		border-top-right-radius: 120px; 
+		margin: 35px 0 0 5px; 
+		position: absolute;
+	}
+	.data-freshness-per-left {
+		position: absolute; 
+		color: #555; 
+		margin: 120px 0 0 1px; 
+		text-align: left; 
+		font-family: helvetica; 
+		font-size: 12px;
+		width: 30px;
+		
+	}
+	.data-freshness-per-right {
+		position: absolute; 
+		color: #555; 
+		margin: 120px 0 0 125px;
+		text-align: left; 
+		font-family: helvetica; 
+		font-size: 11px;
+		width: 35px;
+	}
+	.wedge {
+		width				: 0;
+		height				: 0; 
+		border-left			: 2px solid transparent; 
+		border-right		: 2px solid transparent; 
+		border-bottom		: 40px solid #555;
+		position			: absolute;
+		margin				: 55px 0 0 60px;
+		transform-origin	: 50% 100%;
+		animation			: 1s forwards rotateWedge;
+	}
+	.wedge-block {
+		width				: 40px;
+		height				: 20px;
+		text-align			: center;
+		line-height			: 20px;
+		color				: #d6462c;
+		position			: absolute;
+		font-size			: 10px;
+		font-weight			: bold;
+		font-family			: arial narrow;
+		margin				: 90px 0 0 40px;
+		animation			: 1s forwards rotateWedgeBlock;
+		border				: 1px solid;
+	}		
+	.rot-axis {
+		width: 11px;
+		height: 11px; 
+		border-radius: 50%;
+		background: #000;
+		position: absolute;
+		margin: 103px 0 0 69px;
+	}
+	@keyframes rotateWedge { 
+		from { opacity: 1; transform: rotate(0 deg) } to { opacity : 1; transform: rotate(70deg)} 
+	}
+	

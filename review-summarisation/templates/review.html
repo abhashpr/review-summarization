@@ -1,0 +1,216 @@
+<html>
+<head>
+	<link href="/static/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="/static/edwh.css" rel="stylesheet" title="Default Style">
+	<link href="https://fonts.googleapis.com/css?family=Acme|Comfortaa|Libre+Franklin|Lobster|Montserrat" rel="stylesheet">
+	<script type="text/javascript" src="/static/edwh.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
+
+</head>
+
+<body onload="rotateMeter(); moveBars();">
+	<div class="header">
+		<!--<div class="logo">
+			<img width="210" height="40" src="/static/img/website_logo.png" />
+		</div>-->
+	</div>	
+		<div id="blog-demo">
+			<div id="demo-opener">Training Data</div>
+			<div id="demo-closer">X</div>
+			<div style="display: inline; float: right; margin: -170px -50px 0 0; width: 210px;">
+				<button onclick="exportTableToCsv('reviews_mod.csv');" style="float: left; border-radius: 2px; ">export to csv</button>
+				<button onclick="refresh_model();" style="float: left; border-radius: 2px; ">refresh</button>
+			</div>
+			<div id="jsGrid" style="margin-top: -130px;">
+			<!-- 	http://js-grid.com/demos/ 
+					http://js-grid.com/getting-started/
+			-->
+			</div>
+			<!--
+			<div id="train-table">
+				<table class="table table-condensed table-striped">
+					<thead>
+						<th>REVIEW_COMMENT</th>
+						<th>FEATURE</th>
+					</thead>
+					<tbody>
+						{% for line in data_json %}
+						<tr>
+						<td>{{ line['review-comment'] }}</td>
+						<td>{{ line['feature'] }}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			-->
+		</div>
+		
+	<script>
+		$("#demo-opener").click(function(e) {$("#blog-demo").removeClass("hide-form");$("#blog-demo").toggleClass("show-form");});
+		$("#demo-closer").click(function(e) {$("#blog-demo").removeClass("show-form");$("#blog-demo").addClass("hide-form");});
+	</script>
+	
+    <script>
+		var baseUrl = 'http://localhost:8000/';
+        var clients = [
+		{% for line in data_json %}
+			{ "review-comment": "{{ line['review-comment'] }}", "feature": "{{ line['feature'] }}"},
+		{% endfor %}
+		{ "review_comment": "", "feature": ""}
+		];
+ 
+        $("#jsGrid").jsGrid({
+            width: "100%",
+            height: "400px",
+			
+			filtering: true,
+            inserting: true,
+            editing: true,
+            sorting: true,
+            paging: false,
+			autoload: true,
+     
+            data: clients,
+     
+            fields: [
+                { name: "review-comment", type: "text", width: 500, validate: "required" },
+                { name: "feature", type: "text", width: 100, validate: "required" },
+                { type: "control" }
+            ]
+        });
+		
+		function downloadCSV(csv, filename) {
+			var csvFile;
+			var downloadLink;
+			
+			csvFile = new Blob([csv], {type:"text/csv"});
+			downloadLink = document.createElement("a");
+			downloadLink.download = filename;
+			downloadLink.href = window.URL.createObjectURL(csvFile);
+			downloadLink.style.display = "none";
+			
+			document.body.appendChild(downloadLink);
+			
+			downloadLink.click();
+		}
+		
+		function exportTableToCsv(filename) {
+			var csv = [];
+			var rows = document.querySelectorAll("table tr");
+			
+			for (var i = 0; i < rows.length; i++)
+			{
+				var ind = 1
+				var row = [], cols = rows[i].querySelectorAll("td, th");
+				for (var j = 0; j < 2; j++)
+					if (cols[j].innerText != "")
+						row.push('"' + cols[j].innerText + '"');
+					else
+						ind = 0
+				
+				if (ind == 1)
+					csv.push(row.join(","));
+			}
+			
+			// download csv file 
+			downloadCSV(csv.join("\n"), filename);
+		}
+		
+		
+		// send refresh request to classification model
+		function refresh_model() {
+			$.ajax({
+				method: "POST",
+				url: "/refresh_model",
+				contentType: "application/json",
+				data: JSON.stringify({id:"1", user: "default"})
+			});
+		}
+    </script>
+	<div style="margin: 5px 0 100px 100px;">
+		<form action="/evaluate_review" method="get" onsubmit="rotateMeter();">
+			<textarea cols="50" rows="5" name="reviewText" style="margin-right: 10px;" value="{{ reviewText if reviewText else ''}}"></textarea>
+			<br>
+			<button type="submit" id="submit-text">Submit</button>
+			<br>
+				<!--<table>
+					{% for keys in obj %}
+					<tr>
+						<td>{{ keys }}</td>
+						<td>{{ obj[keys] }}</td>
+					</tr>
+					{% endfor %}
+				</table>
+				-->
+		</form>
+		<div id="horizontal-bars" style="margin: 50px 0 0 0; position: relative; height: auto;">
+			
+			{% for keys in obj %}
+			<div class="hor-bar-unit">
+				<p class="hor-bar-feature-name">{{ keys }}</p>
+				<p class="hor-bar-feature-val">{{ obj[keys] * 100 }}%</p>
+				<div class="myProgress">
+					<div class="myBar" value="{{ obj[keys] * 100 }}"></div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+		<style>
+			
+			.hor-bar-unit {clear: both; height: 20px; overflow: auto;}
+			
+			.hor-bar-feature-name {
+				font-family: helvetica; 
+				font-size: 12px;
+				width: 100px;
+				margin-right: 5px;
+				float: left;
+			}
+			
+			.hor-bar-feature-val {
+				font-family: helvetica; 
+				font-size: 12px;
+				width: 40px;
+				margin-right: 5px;
+				float: left;
+			}
+			.myProgress {
+				width: 15%;
+				background-color: #fff;
+				float: left;
+			}
+			
+			.myBar {
+				width: 1%;
+				height: 10px;
+				background-color: #f4c741;
+			}
+		</style>
+		<br><br>
+		<div id="data-freshness-section">
+			<div id="data-freshness-title"> Review Meter</div>
+			<div id="data-freshness-ind">	
+				{% for keys in obj %}
+				<div class="data-freshness-meter">
+					<p>{{ keys }}</p>
+					<div class="data-freshness-scale"></div>
+					<div class="wedge"></div>
+					<div class="wedge-block">{{ obj[keys] * 100 }}</div>
+					<!-- <div class="rot-axis"></div> 
+					<span class="data-freshness-per-left">0 %</span>
+					<span class="data-freshness-per-right">100 %</span>-->
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	
+		
+</body>
+</html>

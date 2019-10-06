@@ -1,0 +1,75 @@
+<html>
+<head>
+	<link href="/static/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="/static/edwh.css" rel="stylesheet" title="Default Style">
+	<link href="https://fonts.googleapis.com/css?family=Acme|Comfortaa|Libre+Franklin|Lobster|Montserrat" rel="stylesheet">
+	<script type="text/javascript" src="/static/edwh.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+	<div class="header">
+		<!--<div class="logo">
+			<img width="210" height="40" src="/static/img/website_logo.png" />
+		</div>-->
+	</div>
+		<div id="blog-demo">
+			<div id="demo-opener">Training Data</div>
+			<div id="demo-closer">X</div>
+			<div id="train-table">
+				<table class="table table-condensed table-striped">
+					<thead>
+						<th>REVIEW_COMMENT</th>
+						<th>FEATURE</th>
+					</thead>
+					<tbody>
+						{% for line in data_json %}
+						<tr>
+						<td>{{ line['review-comment'] }}</td>
+						<td>{{ line['feature'] }}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	<script>
+		$("#demo-opener").click(function(e) {$("#blog-demo").removeClass("hide-form");$("#blog-demo").toggleClass("show-form");});
+		$("#demo-closer").click(function(e) {$("#blog-demo").removeClass("show-form");$("#blog-demo").addClass("hide-form");});
+	</script>
+	<div style="margin: 5px 0 100px 50px">
+		<form action="/evaluate_review" method="get" onsubmit="rotateMeter();">
+			<textarea cols="50" rows="5" name="reviewText" style="margin-right: 10px;" value="{{ reviewText if reviewText else ''}}"></textarea>
+			<br>
+			<button type="submit" id="submit-text">Submit</button>
+			<br>
+				<!--<table>
+					{% for keys in obj %}
+					<tr>
+						<td>{{ keys }}</td>
+						<td>{{ obj[keys] }}</td>
+					</tr>
+					{% endfor %}
+				</table>
+				-->
+				<br>
+				<div style="float: left; padding: 20px; margin: 0 0 10px 0">
+					{% for keys in obj %}
+					<div class="data-freshness-meter">
+						<p>{{ keys }}</p>
+						<div class="data-freshness-scale"></div>
+						<div class="wedge"></div>
+						<div class="wedge-block">{{ obj[keys] * 100 }}</div>
+						<!-- <div class="rot-axis"></div> -->
+						<span class="data-freshness-per-left">0 %</span>
+						<span class="data-freshness-per-right">100 %</span>
+					</div>
+					{% endfor %}
+				</div>
+		</form>
+	</div>
+		
+</body>
+</html>

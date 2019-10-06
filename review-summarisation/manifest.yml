@@ -1,0 +1,7 @@
+---
+applications:
+ - name: ReviewSummarizer
+   random-route: true
+   memory: 128M
+   services:
+   - Cloudant NoSQL DB-h2
